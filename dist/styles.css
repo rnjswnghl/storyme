@@ -59,7 +59,7 @@ p{margin:0}
 .toast{position:fixed;left:50%;bottom:1.5rem;transform:translateX(-50%);background:var(--ink);color:#fff;padding:.7rem 1.1rem;border-radius:999px;font-size:.9rem;z-index:60;box-shadow:var(--shadow)}
 
 /* ── home: hero ──────────────────────── */
-.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,520px);gap:3rem;align-items:end;padding:4.5rem 0 3.5rem}
+.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,520px);gap:3rem;align-items:center;padding:4.5rem 0 3.5rem}
 .hero h1{font-size:clamp(2.6rem,6.2vw,4.6rem);font-weight:820;letter-spacing:-.045em;line-height:1.04}
 .hero__lead{margin-top:1.4rem;max-width:34rem;font-size:1.08rem;color:var(--ink-2)}
 .hero__nums{display:flex;gap:2.2rem;margin-top:2rem;flex-wrap:wrap}
@@ -91,9 +91,10 @@ p{margin:0}
 .days__legend button[aria-pressed="true"]{background:var(--ink);color:#fff}
 .days__legend .setback{background:transparent;color:var(--ink-3);cursor:default;padding-left:.2rem}
 .days__legend .setback i{width:.7rem;height:.7rem;border-radius:3px;box-shadow:0 0 0 2px var(--warn);display:inline-block}
-.day{margin-top:1rem;padding-top:1rem;border-top:1px solid var(--line);font-size:.9rem;min-height:5.5rem}
+.day{margin-top:1rem;padding-top:1rem;border-top:1px solid var(--line);font-size:.88rem;min-height:9.5rem}
 .day h3{font-size:.95rem;margin-bottom:.4rem}
 .day ul{list-style:none;margin:0;padding:0;display:grid;gap:.35rem}
+.day li{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .day li span{color:var(--ink-3);font-size:.78rem;margin-right:.4rem}
 
 /* ── home: sections ──────────────────── */

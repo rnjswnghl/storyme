@@ -70,11 +70,12 @@ function renderDays(records, story) {
     }
   }
 
-  const LABEL = { scene: '장면', episode: '일화', peer: '동료가 본 나', kept: '실천', effort: '노력', note: '나에게' };
+  const LABEL = { peer: '동료가 본 나', episode: '일화', kept: '실천', effort: '노력' };
   function select(iso, cell) {
     cells.forEach((c) => c.setAttribute('aria-pressed', String(c === cell)));
     const day = recByDate.get(iso);
-    const pick = day.items.filter((i) => LABEL[i.kind]).slice(0, 7);
+    const order = ['kept', 'effort', 'peer', 'episode'];
+    const pick = day.items.filter((i) => LABEL[i.kind]).sort((a, b) => order.indexOf(a.kind) - order.indexOf(b.kind)).slice(0, 4);
     detail.replaceChildren(
       el('h3', { text: fmtDate(iso) }),
       el('ul', {}, ...pick.map((i) => el('li', {}, el('span', { text: LABEL[i.kind] }), i.text))),
