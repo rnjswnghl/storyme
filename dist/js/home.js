@@ -129,7 +129,11 @@ function renderStrengths(story) {
   if (s.removedByMe.status !== 'done') $('#cut-todo').textContent = s.removedByMe.note;
 }
 
-function renderStory(story, reviewCount) {
+function setReviewCount(n) {
+  $('#review-count').textContent = n == null ? '동료 평가 수를 불러오지 못했습니다.' : `지금까지 남겨진 동료 평가 ${n}개. 두 개 이상이면 C13 통과`;
+}
+
+function renderStory(story) {
   const st = story.story;
   $('#hardship').textContent = st.hardship.text || st.hardship.prompt;
   $('#third').append(...paragraphs(st.thirdPerson.text));
@@ -137,7 +141,7 @@ function renderStory(story, reviewCount) {
   if (st.firstPerson.text) $('#first').replaceChildren(...paragraphs(st.firstPerson.text));
   else $('#first-todo').textContent = st.firstPerson.note;
   $('#first-pill').replaceWith(pill(st.firstPerson.status));
-  $('#review-count').textContent = reviewCount == null ? '동료 평가를 불러오지 못했습니다.' : `지금까지 남겨진 동료 평가 ${reviewCount}개 · 두 개 이상이면 C13 통과`;
+  $('#review-count').textContent = '동료 평가 수를 불러오는 중…';
 }
 
 function renderLetter(story) {
@@ -167,6 +171,11 @@ function renderCheck(story, reviewCount) {
   const n = { done: 0, draft: 0, todo: 0 };
   crit.forEach((c) => (n[c.status] += 1));
   const bar = $('#progress-bar');
+  bar.replaceChildren();
+  $('#crit-open').replaceChildren();
+  $('#crit-done').replaceChildren();
+  $('#judge').replaceChildren();
+  $('#verify').replaceChildren();
   const a = el('i');
   const b = el('i');
   a.style.width = `${(n.done / crit.length) * 100}%`;
@@ -193,14 +202,17 @@ function renderCheck(story, reviewCount) {
 
 async function main() {
   const { records, story } = await loadData();
-  const reviewCount = await getJSON('/api/reviews').then((r) => r.items.length).catch(() => null);
   renderHero(records, story);
   renderDays(records, story);
   renderStrengths(story);
-  renderStory(story, reviewCount);
+  renderStory(story);
   renderLetter(story);
   renderRules(story);
-  renderCheck(story, reviewCount ?? 0);
+  renderCheck(story, 0);
+  // 동료 평가 수는 서버에서 가져온다. 화면은 먼저 그리고, 숫자가 오면 해당 부분만 바꾼다.
+  const reviewCount = await getJSON('/api/reviews').then((r) => r.items.length).catch(() => null);
+  setReviewCount(reviewCount);
+  if (reviewCount >= 2) renderCheck(story, reviewCount);
 }
 
 main().catch((err) => {
