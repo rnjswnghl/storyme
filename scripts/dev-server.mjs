@@ -2,7 +2,11 @@
 import { createServer } from 'node:http';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
-import handler from '../api/ask.js';
+import ask from '../api/ask.js';
+import reviews from '../api/reviews.js';
+import chats from '../api/chats.js';
+
+const API = { '/api/ask': ask, '/api/reviews': reviews, '/api/chats': chats };
 
 const PORT = Number(process.env.PORT || 4190);
 const TYPES = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.json': 'application/json; charset=utf-8', '.svg': 'image/svg+xml', '.woff2': 'font/woff2', '.ttf': 'font/ttf', '.md': 'text/markdown; charset=utf-8' };
@@ -10,7 +14,7 @@ const CSP = "default-src 'self'; script-src 'self'; style-src 'self'; img-src 's
 
 createServer(async (req, res) => {
   const url = new URL(req.url, 'http://x');
-  if (url.pathname === '/api/ask') return handler(req, res);
+  if (API[url.pathname]) return API[url.pathname](req, res);
   const rel = path.normalize(decodeURIComponent(url.pathname)).replace(/^([/\\])+/, '') || 'index.html';
   const file = path.join('dist', rel.endsWith('/') ? `${rel}index.html` : rel);
   if (!file.startsWith('dist')) { res.statusCode = 403; return res.end(); }

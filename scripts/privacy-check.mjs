@@ -6,7 +6,7 @@
 import { readdir, readFile, stat } from 'node:fs/promises';
 import path from 'node:path';
 
-const ROOTS = ['dist', 'docs', 'api', 'scripts', 'README.md', 'vercel.json', 'package.json'];
+const ROOTS = ['dist', 'docs', 'api', 'lib', 'scripts', 'README.md', 'vercel.json', 'package.json'];
 const TEXT = /\.(js|mjs|json|md|html|css|svg|txt)$/;
 const RULES = [
   [/동료 \d에게 말한 장점|동료 \d가 나눈 감사/, '동료에 관한 칸'],
