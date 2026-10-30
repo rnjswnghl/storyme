@@ -138,7 +138,10 @@ loadData()
     data = d;
     render(turns);
     const q = new URLSearchParams(location.search).get('q');
-    if (q) ask(q);
+    if (q) {
+      history.replaceState(null, '', location.pathname);
+      ask(q);
+    }
   })
   .catch((err) => msgs.replaceChildren(el('p', { class: 'notice', text: `기록 파일을 읽지 못했습니다(${err.message}).` })));
 loadSaved();
