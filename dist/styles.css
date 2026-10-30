@@ -89,7 +89,7 @@ p{margin:0}
 .days__legend{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem}
 .days__legend button{display:inline-flex;align-items:center;gap:.4rem;border:0;background:var(--sunk);border-radius:999px;padding:.3rem .65rem;font-size:.78rem;font-weight:600;color:var(--ink-2);cursor:pointer}
 .days__legend button[aria-pressed="true"]{background:var(--ink);color:#fff}
-.days__legend .setback{background:transparent;color:var(--ink-3);cursor:default;padding-left:.2rem}
+.days__legend .setback{display:inline-flex;align-items:center;gap:.45rem;font-size:.78rem;color:var(--ink-3);padding-left:.35rem}
 .days__legend .setback i{width:.7rem;height:.7rem;border-radius:3px;box-shadow:0 0 0 2px var(--warn);display:inline-block}
 .day{margin-top:1rem;padding-top:1rem;border-top:1px solid var(--line);font-size:.88rem;min-height:9.5rem}
 .day h3{font-size:.95rem;margin-bottom:.4rem}

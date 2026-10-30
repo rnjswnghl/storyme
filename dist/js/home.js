@@ -209,6 +209,7 @@ async function main() {
   renderLetter(story);
   renderRules(story);
   renderCheck(story, 0);
+  if (location.hash) document.querySelector(location.hash)?.scrollIntoView();
   // 동료 평가 수는 서버에서 가져온다. 화면은 먼저 그리고, 숫자가 오면 해당 부분만 바꾼다.
   const reviewCount = await getJSON('/api/reviews').then((r) => r.items.length).catch(() => null);
   setReviewCount(reviewCount);
