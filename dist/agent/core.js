@@ -102,6 +102,25 @@ export function tally(records) {
   }).sort((a, b) => b.dayCount - a.dayCount);
 }
 
+/**
+ * 날짜별로 동료가 가장 많이 말한 강점을 고른다. 강점 지도 달력의 색이 된다.
+ * @param keys 색을 칠할 강점 key 목록(강점 지도에 오른 것)
+ * @returns {{date:string, k:string, w:number, setback:boolean}[]}  k='none'은 세 강점 어디에도 안 걸린 날
+ */
+export function perDay(records, keys) {
+  const cats = LEXICON.filter((c) => keys.includes(c.key));
+  return records.days.map((day) => {
+    const peers = day.items.filter((i) => i.kind === 'peer');
+    let best = { k: 'none', n: 0 };
+    for (const c of cats) {
+      const n = peers.filter((p) => c.pattern.test(p.text)).length;
+      if (n > best.n) best = { k: c.key, n };
+    }
+    const kept = day.items.find((i) => i.kind === 'kept');
+    return { date: day.date, k: best.k, w: Math.min(best.n, 3), setback: Boolean(kept && /못/.test(kept.text)) };
+  });
+}
+
 /** 실천하지 못한 날과 그 다음 기록. 고비 이야기의 재료다. */
 export function setbacks(records) {
   const out = [];

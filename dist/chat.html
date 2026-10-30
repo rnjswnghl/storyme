@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>대화 · 권주회를 말하는 에이전트</title>
+  <meta name="description" content="권주회의 리추얼 기록에 직접 질문하는 대화 페이지. 모든 답에 날짜가 붙은 원문 근거가 함께 나옵니다.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/PretendardVariable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="js/chat.js"></script>
+</head>
+<body>
+  <a class="skip" href="#composer-input">질문 입력으로 건너뛰기</a>
+  <header class="bar">
+    <div class="bar__in">
+      <a class="mark" href="./"><span class="mark__dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>권주회 <small>기록 에이전트</small></a>
+      <nav class="tabs" aria-label="페이지">
+        <a href="./">기록</a>
+        <a href="chat.html" aria-current="page">대화</a>
+        <a href="review.html">동료 평가</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page chat" id="main">
+    <aside class="panel side" aria-label="대화 목록">
+      <button class="btn btn--ink" type="button" id="new-chat">새 대화</button>
+      <div>
+        <h2>이렇게 물어보세요</h2>
+        <div class="suggest" id="suggest"></div>
+      </div>
+      <div>
+        <h2>남겨진 대화</h2>
+        <ul class="saved" id="saved"></ul>
+      </div>
+    </aside>
+
+    <section class="panel thread" aria-labelledby="thread-title">
+      <div class="thread__top">
+        <div>
+          <h1 id="thread-title">기록에게 묻기</h1>
+          <p id="mode">기록 검색 모드 · 기록에 없는 내용은 답하지 않습니다</p>
+        </div>
+        <button class="btn btn--ghost" type="button" id="save-chat" disabled>이 대화 남기기</button>
+      </div>
+      <div class="readonly" id="readonly" hidden></div>
+      <div class="msgs" id="msgs" aria-live="polite"></div>
+      <div class="composer">
+        <form id="composer">
+          <label class="sr" for="composer-input">질문</label>
+          <input id="composer-input" name="q" type="text" autocomplete="off" maxlength="200" placeholder="예: 가장 힘들었던 날은?">
+          <button class="btn btn--ink" type="submit">묻기</button>
+        </form>
+        <div class="composer__row">
+          <span>이 대화는 이 브라우저에만 저장됩니다. ‘이 대화 남기기’를 누르면 누구나 볼 수 있게 공개됩니다.</span>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

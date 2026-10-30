@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>동료 평가 · 권주회를 말하는 에이전트</title>
+  <meta name="description" content="권주회의 고비 이야기를 읽고 '나 같아?', '지어낸 느낌이 있어?' 두 가지에 답하는 동료 평가 페이지.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/PretendardVariable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="js/review.js"></script>
+</head>
+<body>
+  <a class="skip" href="#review-form">평가 남기기로 건너뛰기</a>
+  <header class="bar">
+    <div class="bar__in">
+      <a class="mark" href="./"><span class="mark__dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>권주회 <small>기록 에이전트</small></a>
+      <nav class="tabs" aria-label="페이지">
+        <a href="./">기록</a>
+        <a href="chat.html">대화</a>
+        <a href="review.html" aria-current="page">동료 평가</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page review" id="main">
+    <div class="review__intro">
+      <h1>이 이야기, 나 같나요?</h1>
+      <p>13주를 같이 보낸 동료에게 부탁드립니다. 아래 이야기를 읽고 두 가지만 답해 주세요. 이름은 받지 않고, 남긴 평가는 이 페이지에 공개됩니다.</p>
+    </div>
+
+    <article class="panel doc">
+      <div class="doc__head">
+        <h2 class="sr">평가할 이야기</h2>
+        <div class="seg" role="group" aria-label="읽을 판본">
+          <button type="button" data-v="first" aria-pressed="false">1인칭 완성본</button>
+          <button type="button" data-v="third" aria-pressed="true">3인칭 초안</button>
+        </div>
+        <span id="story-pill"></span>
+      </div>
+      <div class="prose" id="story-text"></div>
+    </article>
+
+    <form class="panel form" id="review-form" novalidate>
+      <h2>평가 남기기</h2>
+      <fieldset class="field">
+        <legend>나 같아?</legend>
+        <div class="choices">
+          <label><input type="radio" name="same" value="yes" required><span>응, 나 같아</span></label>
+          <label><input type="radio" name="same" value="partly"><span>반쯤</span></label>
+          <label><input type="radio" name="same" value="no"><span>아니</span></label>
+        </div>
+        <textarea name="sameNote" rows="2" maxlength="300" aria-label="나 같아? 에 대한 한 줄 의견" placeholder="어느 대목이 그런지 한 줄 (선택)"></textarea>
+      </fieldset>
+      <fieldset class="field">
+        <legend>지어낸 느낌이 있어?</legend>
+        <div class="choices">
+          <label><input type="radio" name="madeUp" value="no" required><span>없어</span></label>
+          <label><input type="radio" name="madeUp" value="partly"><span>조금</span></label>
+          <label><input type="radio" name="madeUp" value="yes"><span>있어</span></label>
+        </div>
+        <textarea name="madeUpNote" rows="2" maxlength="300" aria-label="지어낸 느낌에 대한 의견" placeholder="어색한 문장을 짚어 주면 고칠 때 도움이 됩니다 (선택)"></textarea>
+      </fieldset>
+      <div class="field">
+        <label for="comment">하고 싶은 말</label>
+        <textarea id="comment" name="comment" rows="3" maxlength="600" placeholder="13주 동안 본 모습, 응원, 고칠 점 무엇이든 (선택)"></textarea>
+      </div>
+      <div class="field">
+        <label for="alias">별칭</label>
+        <input id="alias" name="alias" type="text" maxlength="12" placeholder="예: 옆자리 동료" autocomplete="off">
+        <small>실명은 쓰지 말아 주세요. 비워 두면 ‘익명 동료’로 남습니다.</small>
+      </div>
+      <div class="hp" aria-hidden="true"><label>웹사이트<input name="website" tabindex="-1" autocomplete="off"></label></div>
+      <p class="form__err" id="form-err" role="alert"></p>
+      <button class="btn btn--ink" type="submit">평가 남기기</button>
+    </form>
+
+    <section class="board" aria-labelledby="board-title">
+      <div class="sec__head">
+        <div>
+          <h2 id="board-title">남겨진 평가</h2>
+          <p id="board-sum"></p>
+        </div>
+      </div>
+      <div class="tallies" id="tallies"></div>
+      <div class="comments" id="comments"></div>
+      <div id="owner"></div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <span>링크·이메일·전화번호가 들어간 글은 저장되지 않습니다.</span>
+    <span><a href="https://github.com/rnjswnghl/storyme">소스</a></span>
+  </footer>
+</body>
+</html>

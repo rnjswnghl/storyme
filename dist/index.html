@@ -3,177 +3,157 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>나를 말하는 에이전트 · 권주회</title>
-  <meta name="description" content="53일의 리추얼 기록만을 근거로 권주회의 강점과 이야기를 찾는 에이전트. 강점 지도, 고비 이야기, 자기소개서 초안, 기록 기반 질의응답.">
+  <title>기록 · 권주회를 말하는 에이전트</title>
+  <meta name="description" content="53일의 리추얼 기록만을 근거로 권주회의 강점과 이야기를 찾는 에이전트. 강점 지도, 고비 이야기, 자기소개서 초안.">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/PretendardVariable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="styles.css">
-  <script type="module" src="app.js"></script>
+  <script type="module" src="js/home.js"></script>
 </head>
 <body>
   <a class="skip" href="#main">본문으로 건너뛰기</a>
-
-  <header class="top">
-    <div class="top__inner">
-      <span class="seal" aria-hidden="true">記</span>
-      <div>
-        <p class="top__kicker">PROJECT ARCHIVE · T09</p>
-        <p class="top__name">권주회</p>
-      </div>
-      <nav class="toc" aria-label="섹션 목차">
-        <ol>
-          <li><a href="#passages">01 대목</a></li>
-          <li><a href="#rules">02 규칙</a></li>
-          <li><a href="#strengths">03 강점 지도</a></li>
-          <li><a href="#story">04 고비 이야기</a></li>
-          <li><a href="#letter">05 자기소개서</a></li>
-          <li><a href="#ask">06 묻기</a></li>
-          <li><a href="#check">07 제출 점검</a></li>
-        </ol>
+  <header class="bar">
+    <div class="bar__in">
+      <a class="mark" href="./"><span class="mark__dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>권주회 <small>기록 에이전트</small></a>
+      <nav class="tabs" aria-label="페이지">
+        <a href="./" aria-current="page">기록</a>
+        <a href="chat.html">대화</a>
+        <a href="review.html">동료 평가</a>
       </nav>
     </div>
   </header>
 
-  <main id="main" class="sheet">
+  <main id="main" class="page">
     <section class="hero" aria-labelledby="hero-title">
-      <p class="eyebrow" id="hero-task">ALEPH 과제 9</p>
-      <h1 id="hero-title">나를 말하는 에이전트</h1>
-      <p class="hero__lead">53일 동안 아침과 저녁에 남긴 리추얼 기록만을 근거로 강점과 이야기를 찾습니다. 기록에 없는 말은 하지 않고, 모든 답에 날짜를 붙입니다.</p>
-      <dl class="stats" id="stats" aria-live="polite">
-        <div><dt>기록한 날</dt><dd>–</dd></div>
-        <div><dt>동료가 말해 준 장점</dt><dd>–</dd></div>
-        <div><dt>제출 조건 완료</dt><dd>–</dd></div>
-      </dl>
-      <p class="legend" id="legend"></p>
-      <noscript><p class="notice">이 페이지는 JavaScript로 기록 파일을 읽어 그립니다. 같은 내용은 <a href="T09-narrative.md">서사 문서(MD)</a>에서 읽을 수 있습니다.</p></noscript>
+      <div>
+        <h1 id="hero-title">53일의 기록이<br>말해 준 권주회</h1>
+        <p class="hero__lead">매일 아침과 저녁에 남긴 리추얼 기록만 근거로 씁니다. 형용사 대신 날짜가 붙은 장면을, 내 말 옆에는 동료의 말을 둡니다.</p>
+        <div class="hero__nums" id="nums"></div>
+        <div class="hero__cta">
+          <a class="btn btn--ink" href="chat.html">에이전트에게 묻기</a>
+          <a class="btn btn--ghost" href="review.html">이야기 읽고 평가 남기기</a>
+        </div>
+      </div>
+      <div class="panel days" id="days">
+        <div class="days__head">
+          <h2>날마다 동료가 짚어 준 강점</h2>
+          <span class="muted">8월 11일 – 10월 30일</span>
+        </div>
+        <div class="days__grid" id="days-grid" role="group" aria-label="날짜별 기록. 칸을 누르면 그날 기록을 봅니다."></div>
+        <div class="days__legend" id="days-legend"></div>
+        <div class="day" id="day-detail" aria-live="polite"></div>
+      </div>
     </section>
 
-    <section id="passages" class="block" aria-labelledby="passages-title">
-      <header class="block__head">
-        <p class="num">01</p>
-        <h2 id="passages-title">기록에서 고른 대목</h2>
-        <span class="badge" data-status-for="passages"></span>
-      </header>
-      <p class="block__note" id="passages-note"></p>
-      <ol class="passages" id="passages-list"></ol>
+    <section class="sec" id="strengths" aria-labelledby="str-title">
+      <div class="sec__head">
+        <div>
+          <h2 id="str-title">되풀이된 강점 세 가지</h2>
+          <p id="str-method"></p>
+        </div>
+        <span class="pill" data-s="draft">초안 · 검토 필요</span>
+      </div>
+      <div class="str" id="str-list"></div>
+      <h3 class="sr">지운 후보</h3>
+      <ul class="cut cut-wrap" id="cut-list" aria-label="지운 후보와 이유"></ul>
+      <p class="todo" id="cut-todo"></p>
     </section>
 
-    <section id="rules" class="block" aria-labelledby="rules-title">
-      <header class="block__head">
-        <p class="num">02</p>
-        <h2 id="rules-title">에이전트에게 준 규칙 다섯</h2>
-        <span class="badge" data-status-for="rules"></span>
-      </header>
-      <ol class="rules" id="rules-list"></ol>
-      <p class="priority" id="priority"></p>
-      <p class="block__note" id="rules-note"></p>
-    </section>
-
-    <section id="strengths" class="block" aria-labelledby="strengths-title">
-      <header class="block__head">
-        <p class="num">03</p>
-        <h2 id="strengths-title">강점 지도</h2>
-        <span class="badge" data-status-for="strengths"></span>
-      </header>
-      <p class="block__note" id="strengths-method"></p>
-      <figure class="tally">
-        <figcaption>강점 후보가 나온 서로 다른 날 수 · 기록 53일 기준</figcaption>
-        <div id="tally-chart" class="tally__chart" role="list"></div>
-        <p class="tally__key"><span class="key key--peer"></span>동료가 말해 준 줄 <span class="key key--self"></span>내가 쓴 줄</p>
-      </figure>
-      <div class="strengths" id="strength-cards"></div>
-      <h3 class="sub">지운 후보와 이유</h3>
-      <ul class="removed" id="removed-list"></ul>
-      <p class="todo-line" id="removed-me"></p>
-    </section>
-
-    <section id="story" class="block" aria-labelledby="story-title">
-      <header class="block__head">
-        <p class="num">04</p>
-        <h2 id="story-title">고난을 지나 더 나아진 나</h2>
-        <span class="badge" data-status-for="story"></span>
-      </header>
-      <div class="story-grid">
-        <article class="paper">
-          <h3>과정 이전의 고난 <span class="badge" data-status="todo"></span></h3>
-          <p class="todo-line" id="hardship"></p>
-        </article>
-        <article class="paper">
-          <h3>3인칭 초안 <span class="badge" data-status="draft"></span></h3>
+    <section class="sec" id="story" aria-labelledby="story-title">
+      <div class="sec__head">
+        <div>
+          <h2 id="story-title">고비를 지나 달라진 것</h2>
+          <p>3인칭으로 먼저 쓰고, 1인칭으로 직접 고쳐 씁니다. 노란 표시는 기록에 없어 흐름을 잇느라 채운 문장입니다.</p>
+        </div>
+        <a class="btn btn--ghost" href="review.html">동료 평가 보기</a>
+      </div>
+      <p class="todo" id="hardship"></p>
+      <div class="two gap-top">
+        <article class="panel doc">
+          <div class="doc__head"><h3>3인칭 초안</h3><span id="third-pill"></span></div>
           <div class="prose" id="third"></div>
-          <p class="meta" id="third-meta"></p>
         </article>
-        <article class="paper">
-          <h3>1인칭 완성본 <span class="badge" data-status="todo"></span></h3>
-          <p class="todo-line" id="first"></p>
-        </article>
-        <article class="paper">
-          <h3>동료 두 사람의 답</h3>
-          <div id="peer-answers"></div>
+        <article class="panel doc">
+          <div class="doc__head"><h3>1인칭 완성본</h3><span id="first-pill"></span></div>
+          <div class="prose" id="first"><p class="todo" id="first-todo"></p></div>
+          <p class="note-sm gap-top" id="review-count"></p>
         </article>
       </div>
     </section>
 
-    <section id="letter" class="block" aria-labelledby="letter-title">
-      <header class="block__head">
-        <p class="num">05</p>
-        <h2 id="letter-title">자기소개서 초안 · 포트폴리오 뼈대</h2>
-        <span class="badge" data-status-for="coverLetter"></span>
-      </header>
-      <div class="letter">
+    <section class="sec" id="letter" aria-labelledby="letter-title">
+      <div class="sec__head">
+        <div>
+          <h2 id="letter-title">자기소개서 초안</h2>
+          <p>강점 셋과 고비 장면을 1,000자 안쪽으로 줄였습니다.</p>
+        </div>
+        <span class="pill" data-s="draft">초안 · 검토 필요</span>
+      </div>
+      <article class="panel letter">
         <p class="slot" id="first-line"></p>
         <div class="prose" id="letter-body"></div>
         <p class="slot" id="last-line"></p>
-        <p class="meta" id="letter-meta"></p>
-      </div>
-      <h3 class="sub">포트폴리오 뼈대</h3>
-      <p class="block__note" id="portfolio-note"></p>
-      <div class="portfolio" id="portfolio"></div>
+        <p class="letter__meta" id="letter-meta"></p>
+      </article>
     </section>
 
-    <section id="ask" class="block block--ask" aria-labelledby="ask-title">
-      <header class="block__head">
-        <p class="num">06</p>
-        <h2 id="ask-title">에이전트에게 묻기</h2>
-        <span class="mode" id="mode">기록 검색 모드</span>
-      </header>
-      <p class="block__note">답은 리추얼 기록 원문에서만 나옵니다. 기록에 없는 질문에는 없다고 답합니다.</p>
-      <div class="chips" id="chips" role="group" aria-label="예시 질문"></div>
-      <form class="askbox" id="ask-form">
-        <label for="ask-input" class="sr">질문</label>
-        <input id="ask-input" name="q" type="text" autocomplete="off" maxlength="200" placeholder="예: 가장 힘들었던 날은? / 9월 8일 / 동료들은 나를 어떻게 봐?">
-        <button type="submit">묻기</button>
-      </form>
-      <div class="log" id="log" aria-live="polite"></div>
-    </section>
-
-    <section id="check" class="block" aria-labelledby="check-title">
-      <header class="block__head">
-        <p class="num">07</p>
-        <h2 id="check-title">제출 점검</h2>
-      </header>
-      <div class="check-grid">
+    <section class="sec" id="folio-sec" aria-labelledby="folio-title">
+      <div class="sec__head">
         <div>
-          <h3 class="sub">통과 조건</h3>
-          <table class="criteria">
-            <caption class="sr">T09 통과 조건과 현재 상태</caption>
-            <thead><tr><th scope="col">조건</th><th scope="col">내용</th><th scope="col">상태</th></tr></thead>
-            <tbody id="criteria"></tbody>
-          </table>
+          <h2 id="folio-title">포트폴리오 뼈대</h2>
+          <p id="folio-note"></p>
         </div>
+      </div>
+      <div class="folio" id="folio"></div>
+    </section>
+
+    <section class="sec" id="rules-sec" aria-labelledby="rules-title">
+      <div class="sec__head">
         <div>
-          <h3 class="sub">AI와 나의 판단</h3>
+          <h2 id="rules-title">에이전트가 따르는 규칙</h2>
+          <p>대화 페이지의 답도 이 다섯 규칙으로 만듭니다.</p>
+        </div>
+      </div>
+      <div class="two">
+        <div class="panel doc">
+          <ol class="rules" id="rules"></ol>
+          <p class="prio" id="prio"></p>
+        </div>
+        <div class="panel doc">
+          <div class="doc__head"><h3>기록에서 고른 대목</h3><span class="pill" data-s="draft">초안 · 검토 필요</span></div>
+          <p class="note-sm gap-bottom" id="picks-note"></p>
+          <ul class="picks" id="picks"></ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec" id="check" aria-labelledby="check-title">
+      <div class="sec__head">
+        <div>
+          <h2 id="check-title">제출 전 남은 일</h2>
+          <p>통과 조건을 지금 상태로 나눴습니다. 직접 써야 하는 칸은 에이전트가 대신 채우지 않았습니다.</p>
+        </div>
+        <a class="btn btn--ghost" href="T09-narrative.md" download>서사 문서 내려받기</a>
+      </div>
+      <div class="two">
+        <div class="panel doc">
+          <div class="progress"><div class="progress__bar" id="progress-bar"></div><b id="progress-n"></b></div>
+          <ul class="crit" id="crit-open"></ul>
+          <details class="more"><summary id="crit-done-sum"></summary><ul class="crit" id="crit-done"></ul></details>
+        </div>
+        <div class="panel doc">
+          <h3 class="gap-bottom">AI와 나의 판단</h3>
           <dl class="judge" id="judge"></dl>
-          <h3 class="sub">짧은 확인 방법</h3>
+          <h3 class="gap-top-lg gap-bottom">짧은 확인 방법</h3>
           <dl class="judge" id="verify"></dl>
-          <p><a class="download" href="T09-narrative.md" download>서사 문서 내려받기 (T09-narrative.md)</a></p>
         </div>
       </div>
     </section>
   </main>
 
   <footer class="foot">
-    <p>기록 원본은 저장소에 올리지 않았습니다. 공개 기록에는 동료 이름을 가리고, 동료에 관한 글과 동료가 쓴 감사는 넣지 않았습니다.</p>
-    <p><a href="https://github.com/rnjswnghl/storyme">소스 저장소</a> · <a href="https://intro.rnjswnghl.chatgpt.site/">포트폴리오</a></p>
+    <span>원본 기록은 저장소에 올리지 않았습니다. 동료 이름은 가리고, 동료에 관한 글은 넣지 않았습니다.</span>
+    <span><a href="https://github.com/rnjswnghl/storyme">소스</a> · <a href="https://intro.rnjswnghl.chatgpt.site/">포트폴리오</a></span>
   </footer>
 </body>
 </html>
