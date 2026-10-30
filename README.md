@@ -11,12 +11,18 @@ ALEPH 과제 9의 산출물(서사 문서, 강점 지도, 고비 이야기, 자�
 
 ```
 dist/                  배포되는 정적 페이지 (Vercel outputDirectory)
-  index.html, app.js, styles.css
+  index.html           기록 — 날짜 격자, 강점, 고비 이야기, 자기소개서, 제출 점검
+  chat.html            대화 — 기록에 질문, 이 브라우저에 저장, '이 대화 남기기'로 공개
+  review.html          동료 평가 — 이야기를 읽고 두 질문 + 댓글
+  js/, styles.css
   agent/core.js        에이전트 핵심 — 규칙 5개, 강점 집계, 기록 검색, 답변. 프레임워크 무관 ES 모듈
   data/records.json    공개용으로 정제한 리추얼 기록
   data/story.json      서사 문서의 원본 데이터(강점 지도·초안·제출 점검)
   T09-narrative.md     story.json에서 생성한 서사 문서 사본
 api/ask.js             선택 기능 — ANTHROPIC_API_KEY가 있을 때만 켜지는 AI 답변 모드
+api/reviews.js         동료 평가 저장·목록·삭제(소유자)
+api/chats.js           남긴 대화 저장·목록. 답은 서버가 기록 검색으로 다시 만든다
+lib/store.js           Vercel Blob 저장소(토큰이 없으면 메모리)
 scripts/
   build-records.mjs    리추얼 JSON → records.json (허용 목록 방식으로 칸을 거름)
   build-doc.mjs        story.json → docs/T09-narrative.md
@@ -44,6 +50,12 @@ npm run check
 |---|---|---|
 | 기록 검색 | 기본 | `agent/core.js`가 기록에서 날짜 붙은 원문을 찾아 답한다. 외부 호출 없음 |
 | AI | Vercel에 `ANTHROPIC_API_KEY` 설정 | 규칙 5개를 시스템 프롬프트로, 검색한 기록만 근거로 넘겨 답한다. 근거 원문은 같이 표시 |
+
+## 동료 평가와 남긴 대화
+
+- Vercel Blob(`storyme-t09-blob`)에 항목 하나를 JSON 하나로 저장한다. 프로젝트에 `BLOB_READ_WRITE_TOKEN`이 연결돼 있다.
+- 이름은 받지 않고, 링크·이메일·전화번호가 든 글은 저장하지 않는다. 숨은 칸과 IP별 호출 제한으로 반복 등록을 줄인다.
+- 지우기: Vercel 프로젝트 환경 변수에 `OWNER_KEY`를 직접 설정하고 `review.html?owner`로 열어 키를 넣는다. 설정 전에는 Vercel 대시보드의 Blob 저장소에서 지운다.
 
 ## 공개 범위
 
